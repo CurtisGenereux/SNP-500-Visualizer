@@ -196,7 +196,7 @@ var leverageRatio = 3;
 var snpAllocation = .55;
 var treausryAllocation = .45;
 
-var portfolioName = "70/30 2x Leverage Stocks & Bonds"
+var portfolioName = "S&P 5000"
 
 var snp500DateHistory = [];
 var snp500StartDate = 1900;
@@ -249,8 +249,9 @@ function calculateChartData(isInflationChart, dividendAdjusted, percentAdjusted)
             
         } else {
     
-            currentAmount*= ( ( ( ( (((percentChange[i]*(leverageRatio))/100)+1) - (leverageRatio*(interest/1200)))*snpAllocation ) ) + 
-            ( (((longTermTreasuryData[i]*leverageRatio*treausryAllocation)/100)+1)*treausryAllocation ) );
+            currentAmount*=((((percentChange[i])/100)+1));
+            /*            currentAmount*= ( ( ( ( (((percentChange[i]*(leverageRatio))/100)+1) - (leverageRatio*(interest/1200)))*snpAllocation ) ) + 
+            ( (((longTermTreasuryData[i]*leverageRatio*treausryAllocation)/100)+1)*treausryAllocation ) );*/
             //currentAmount*=((((percentChange[i])/200)+1)+((longTermTreasuryData[i])/200));
             data[i] = currentAmount;
         }
@@ -306,8 +307,7 @@ function createDateHistory(dateIndex, dataIndex, startDate) {
     }
 }
 
-createDateHistory(snp500DateHistory, data, snp500StartDate)
-
+createDateHistory(snp500DateHistory, data, snp500StartDate);
 
 var longTermTreasuryPerformance = []
 startingBal = 100;
@@ -319,7 +319,7 @@ for (var i = 0; i < longTermTreasuryData.length; i++) {
 
 }
 
-var snp500Performance = []
+var snp500Performance = [];
 startingBal = 100;
 
 for (var i = 0; i < percentChange.length; i++) {
@@ -329,6 +329,8 @@ for (var i = 0; i < percentChange.length; i++) {
 
 }
 
+
+data = snp500Performance;
 
 // green: rgba(0, 128, 0, 0), #37bf5c
 // purple: rgba(99, 91, 255, 0), #635bff
@@ -401,20 +403,20 @@ function createChart(chartType) {
                             y2: 0.9
                         },
                         stops: [
-                        [0, 'rgba(99,91,255, 0.3)'],
-                        [1, Highcharts.color('rgba(99,91,255, 0)').get()]
+                        [0, 'rgba(0, 128, 0, 0.3'],
+                        [1, Highcharts.color('rgba(0, 128, 0, 0)').get()]
 
                         ]
                     },
                 },
             },
             
-            series: [/*{
+            series: [{
                 name: portfolioName,
                 compare: 'percent',
                 data: data,
-                color: '#635bff',
-                lineColor: '#635bff',
+                color: '#37bf5c',
+                lineColor: '#37bf5c',
                 lineWidth: 2,
                 marker: {
                     enabled: false,
@@ -432,7 +434,7 @@ function createChart(chartType) {
                 animation: {
                     duration: 600,
                 } 
-            },  */  {
+            },    /*{
     name: "S&P 500",
     compare: 'percent',
     data: snp500Performance,
@@ -457,7 +459,7 @@ function createChart(chartType) {
     } 
 
 
-}         ],
+}     */    ],
 
             responsive: {
             rules: [{
@@ -551,11 +553,11 @@ plotOptions: {
 },
 
 
-series: [/*{
+series: [{
     name: portfolioName,
     data: data,
-    color: '#635bff',
-    lineColor: '#635bff',
+    color: '#37bf5c',
+    lineColor: '#37bf5c',
     lineWidth: 2,
     marker: {
         enabled: false,
@@ -573,8 +575,8 @@ series: [/*{
     animation: {
         duration: 600,
     } 
-},*/
-
+},
+    /*
   {
     name: "S&P 500",
     data: snp500Performance,
@@ -599,7 +601,7 @@ series: [/*{
     } 
 
 
-}     ],
+}    */ ],
 
 
 
